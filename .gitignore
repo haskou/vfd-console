@@ -1,0 +1,10 @@
+node_modules/
+.yarn/install-state.gz
+dist/
+demo-dist/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
+docs/public/demo/
+coverage/
+.DS_Store
+*.log

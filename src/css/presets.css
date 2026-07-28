@@ -1,0 +1,24 @@
+[data-vfd-preset='aiwa'] {
+  --vfd-phosphor: #68fff5;
+  --vfd-core: #efffff;
+  --vfd-glow: rgb(72 255 244 / 50%);
+  --vfd-panel-gap: clamp(0.65rem, 1.6vw, 1.15rem);
+}
+
+[data-vfd-preset='sony'] {
+  --vfd-phosphor: #7dbdff;
+  --vfd-core: #f0f8ff;
+  --vfd-glow: rgb(87 167 255 / 48%);
+  --vfd-segment-off: rgb(86 126 168 / 15%);
+  --vfd-label-off: rgb(100 146 191 / 25%);
+  --vfd-panel-gap: clamp(1rem, 2.5vw, 1.8rem);
+}
+
+[data-vfd-preset='technics'] {
+  --vfd-phosphor: #8dff91;
+  --vfd-core: #effff0;
+  --vfd-glow: rgb(109 255 117 / 44%);
+  --vfd-segment-off: rgb(84 145 87 / 15%);
+  --vfd-label-off: rgb(98 170 103 / 24%);
+  --vfd-panel-gap: clamp(0.9rem, 2vw, 1.4rem);
+}

@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist"
+  },
+  "include": [
+    "src",
+    "demo",
+    "docs/**/*.d.ts",
+    "docs/.vitepress/config.ts",
+    "docs/.vitepress/theme/index.ts",
+    "tests",
+    "vite.demo.config.ts",
+    "vite.config.ts",
+    "vitest.config.ts",
+    "eslint.config.js"
+  ]
+}

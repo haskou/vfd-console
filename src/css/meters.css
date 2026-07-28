@@ -1,0 +1,218 @@
+@property --vfd-level {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.vfd-meter-bar {
+  display: grid;
+  grid-template-columns: repeat(var(--vfd-meter-segments), minmax(3px, 1fr));
+  gap: 3px;
+  align-items: end;
+}
+
+.vfd-volume-meter {
+  min-height: 1.2rem;
+  opacity: var(--vfd-brightness);
+}
+
+.vfd-meter-segment {
+  --vfd-meter-color: var(--vfd-phosphor);
+  display: block;
+  min-height: 0.45rem;
+  background: var(--vfd-segment-off);
+  border-radius: var(--vfd-segment-radius);
+  transition:
+    background-color 45ms linear
+      calc(var(--vfd-meter-delay, 0) * var(--vfd-meter-stagger)),
+    box-shadow 45ms linear
+      calc(var(--vfd-meter-delay, 0) * var(--vfd-meter-stagger));
+}
+
+.vfd-meter-segment[data-color='green'] {
+  --vfd-meter-color: var(--vfd-green);
+}
+.vfd-meter-segment[data-color='yellow'] {
+  --vfd-meter-color: var(--vfd-yellow);
+}
+.vfd-meter-segment[data-color='red'] {
+  --vfd-meter-color: var(--vfd-red);
+}
+
+.vfd-meter-segment[data-active='true'] {
+  background: var(--vfd-meter-color);
+  box-shadow:
+    0 0 var(--vfd-optical-blur-soft) var(--vfd-core),
+    0 0 var(--vfd-optical-blur-strong)
+      color-mix(in srgb, var(--vfd-meter-color), transparent 50%);
+}
+
+.vfd-spectrum__columns {
+  display: grid;
+  grid-template-columns: repeat(var(--vfd-spectrum-columns), minmax(3px, 1fr));
+  gap: clamp(2px, 0.4vw, 5px);
+  align-items: end;
+}
+
+.vfd-spectrum {
+  opacity: var(--vfd-brightness);
+}
+
+.vfd-spectrum__column {
+  --vfd-level: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  contain: layout style;
+  transition: --vfd-level var(--vfd-meter-transition-duration) linear;
+}
+
+.vfd-spectrum__column .vfd-meter-segment {
+  --vfd-meter-active: clamp(
+    0,
+    calc(var(--vfd-level) - var(--vfd-meter-index)),
+    1
+  );
+  width: 100%;
+  min-height: 3px;
+  aspect-ratio: 2.8;
+  background: color-mix(
+    in srgb,
+    var(--vfd-segment-off) calc((1 - var(--vfd-meter-active)) * 100%),
+    var(--vfd-meter-color) calc(var(--vfd-meter-active) * 100%)
+  );
+  box-shadow:
+    0 0 calc(var(--vfd-meter-active) * var(--vfd-optical-blur-soft))
+      color-mix(
+        in srgb,
+        var(--vfd-core) calc(var(--vfd-meter-active) * 100%),
+        transparent
+      ),
+    0 0 calc(var(--vfd-meter-active) * var(--vfd-optical-blur-strong))
+      color-mix(
+        in srgb,
+        var(--vfd-meter-color) calc(var(--vfd-meter-active) * 50%),
+        transparent
+      );
+}
+
+.vfd-spectrum-labels {
+  display: grid;
+  grid-template-columns: repeat(var(--vfd-spectrum-columns), minmax(0, 1fr));
+  gap: clamp(2px, 0.4vw, 5px);
+  margin-bottom: 0.5rem;
+  color: var(--vfd-phosphor);
+  font-size: clamp(0.5rem, 0.9vw, 0.75rem);
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  line-height: 1;
+  text-align: center;
+  text-shadow:
+    0 0 var(--vfd-optical-blur-soft) var(--vfd-core),
+    0 0 var(--vfd-optical-blur-strong) var(--vfd-glow);
+}
+
+.vfd-spectrum-labels span::after {
+  display: block;
+  margin-top: 0.18rem;
+  font-size: 0.72em;
+  content: 'Hz';
+}
+
+.vfd-panel[data-powered='false'] .vfd-spectrum-labels {
+  color: var(--vfd-label-off);
+  text-shadow: none;
+}
+
+.vfd-peak-meter {
+  display: grid;
+  gap: 0.22rem;
+  color: var(--vfd-phosphor);
+  opacity: var(--vfd-brightness);
+}
+
+.vfd-peak-meter__scale {
+  display: grid;
+  grid-template-columns: 1.3rem repeat(
+      var(--vfd-meter-segments),
+      minmax(0, 1fr)
+    );
+  gap: 0.35rem;
+  align-items: center;
+  color: var(--vfd-label-off);
+  font-size: 0.55rem;
+  line-height: 1;
+  text-align: center;
+}
+
+.vfd-peak-meter__channel {
+  grid-template-columns: 1.3rem repeat(
+      var(--vfd-meter-segments),
+      minmax(0, 1fr)
+    );
+  gap: 0.35rem;
+}
+
+.vfd-peak-meter__channel-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-align: center;
+  text-shadow:
+    0 0 var(--vfd-optical-blur-soft) var(--vfd-core),
+    0 0 var(--vfd-optical-blur-strong) var(--vfd-glow);
+}
+
+.vfd-peak-meter .vfd-meter-segment {
+  min-height: 0.42rem;
+}
+
+.vfd-balance-meter {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 0.45rem minmax(0, 1fr) auto;
+  gap: 0.3rem;
+  align-items: center;
+  color: var(--vfd-phosphor);
+  opacity: var(--vfd-brightness);
+}
+
+.vfd-balance-meter__label {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-shadow:
+    0 0 var(--vfd-optical-blur-soft) var(--vfd-core),
+    0 0 var(--vfd-optical-blur-strong) var(--vfd-glow);
+}
+
+.vfd-panel[data-powered='false'] .vfd-peak-meter__channel-label,
+.vfd-panel[data-powered='false'] .vfd-balance-meter__label {
+  color: var(--vfd-label-off);
+  text-shadow: none;
+}
+
+.vfd-balance-meter__side--left {
+  direction: rtl;
+}
+
+.vfd-balance-meter__center {
+  display: block;
+  min-height: 0.65rem;
+  background: var(--vfd-segment-off);
+  border-radius: var(--vfd-segment-radius);
+  transition:
+    background-color 45ms linear,
+    box-shadow 45ms linear;
+}
+
+.vfd-balance-meter__center[data-active='true'] {
+  background: var(--vfd-phosphor);
+  box-shadow:
+    0 0 var(--vfd-optical-blur-soft) var(--vfd-core),
+    0 0 var(--vfd-optical-blur-strong) var(--vfd-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --vfd-meter-stagger: 0ms;
+    --vfd-meter-transition-duration: 0ms;
+  }
+}

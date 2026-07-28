@@ -1,0 +1,162 @@
+.vfd-segment-display {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: var(--vfd-segment-gap);
+  min-width: 0;
+  opacity: var(--vfd-brightness);
+}
+
+.vfd-character {
+  --vfd-character-glow: var(--vfd-glow);
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0.6rem;
+  aspect-ratio: 0.62;
+}
+
+.vfd-character[data-illuminated='true'] {
+  filter: drop-shadow(0 0 var(--vfd-optical-blur-soft) var(--vfd-core))
+    drop-shadow(0 0 var(--vfd-optical-blur-strong) var(--vfd-character-glow));
+}
+
+.vfd-segment {
+  --vfd-segment-color: var(--vfd-phosphor);
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  background: var(--vfd-segment-off);
+  border-radius: var(--vfd-segment-radius);
+  clip-path: polygon(12% 0, 88% 0, 100% 50%, 88% 100%, 12% 100%, 0 50%);
+  opacity: 0.8;
+}
+
+.vfd-character[data-color='green'] .vfd-segment {
+  --vfd-segment-color: var(--vfd-green);
+}
+
+.vfd-character[data-color='green'] {
+  --vfd-character-glow: color-mix(in srgb, var(--vfd-green), transparent 50%);
+}
+
+.vfd-character[data-color='yellow'] .vfd-segment {
+  --vfd-segment-color: var(--vfd-yellow);
+}
+
+.vfd-character[data-color='yellow'] {
+  --vfd-character-glow: color-mix(in srgb, var(--vfd-yellow), transparent 50%);
+}
+
+.vfd-character[data-color='red'] .vfd-segment {
+  --vfd-segment-color: var(--vfd-red);
+}
+
+.vfd-character[data-color='red'] {
+  --vfd-character-glow: color-mix(in srgb, var(--vfd-red), transparent 50%);
+}
+
+.vfd-segment[data-active='true'] {
+  background: var(--vfd-segment-color);
+  opacity: 1;
+}
+
+.vfd-segment--a,
+.vfd-segment--d {
+  left: 18%;
+  width: 64%;
+  height: 6%;
+}
+
+.vfd-segment--a {
+  top: 3%;
+}
+.vfd-segment--d {
+  bottom: 3%;
+}
+
+.vfd-segment--g1,
+.vfd-segment--g2 {
+  top: 47%;
+  width: 31%;
+  height: 6%;
+}
+
+.vfd-segment--g1 {
+  left: 18%;
+}
+.vfd-segment--g2 {
+  right: 18%;
+}
+
+.vfd-segment--b,
+.vfd-segment--c,
+.vfd-segment--e,
+.vfd-segment--f {
+  width: 7%;
+  height: 39%;
+  clip-path: polygon(50% 0, 100% 10%, 100% 90%, 50% 100%, 0 90%, 0 10%);
+}
+
+.vfd-segment--b {
+  top: 8%;
+  right: 8%;
+}
+.vfd-segment--c {
+  right: 8%;
+  bottom: 8%;
+}
+.vfd-segment--e {
+  left: 8%;
+  bottom: 8%;
+}
+.vfd-segment--f {
+  top: 8%;
+  left: 8%;
+}
+
+.vfd-segment--h,
+.vfd-segment--i,
+.vfd-segment--j,
+.vfd-segment--k {
+  width: 7%;
+  height: 35%;
+  transform-origin: center;
+}
+
+.vfd-segment--h {
+  top: 10%;
+  left: 29%;
+  transform: rotate(-27deg);
+}
+.vfd-segment--i {
+  top: 10%;
+  right: 29%;
+  transform: rotate(27deg);
+}
+.vfd-segment--j {
+  bottom: 10%;
+  left: 29%;
+  transform: rotate(27deg);
+}
+.vfd-segment--k {
+  right: 29%;
+  bottom: 10%;
+  transform: rotate(-27deg);
+}
+
+.vfd-segment--l,
+.vfd-segment--m {
+  left: 46.5%;
+  width: 7%;
+  height: 35%;
+  clip-path: polygon(50% 0, 100% 10%, 100% 90%, 50% 100%, 0 90%, 0 10%);
+}
+
+.vfd-segment--l {
+  top: 9%;
+}
+.vfd-segment--m {
+  bottom: 9%;
+}

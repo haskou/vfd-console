@@ -1,0 +1,17 @@
+.vfd-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vfd-spinner,
+  .vfd-text-scroller {
+    --vfd-step-duration: 500ms;
+  }
+}

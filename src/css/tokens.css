@@ -1,0 +1,28 @@
+:root {
+  --vfd-glass: #020809;
+  --vfd-glass-raised: #061012;
+  --vfd-glass-border: rgb(90 255 245 / 18%);
+  --vfd-phosphor: #68fff5;
+  --vfd-core: #efffff;
+  --vfd-glow: rgb(72 255 244 / 50%);
+  --vfd-segment-off: rgb(70 145 142 / 14%);
+  --vfd-label-off: rgb(88 170 165 / 24%);
+  --vfd-green: #92ff7e;
+  --vfd-yellow: #ffd15c;
+  --vfd-red: #ff5b51;
+  --vfd-step-duration: 60ms;
+  --vfd-scroll-duration: 260ms;
+  --vfd-spinner-duration: 180ms;
+  --vfd-segment-gap: 2px;
+  --vfd-segment-radius: 1px;
+  --vfd-brightness: 1;
+  --vfd-meter-stagger: 14ms;
+  --vfd-meter-transition-duration: 180ms;
+  --vfd-button-indicator-blur-soft: 2px;
+  --vfd-button-indicator-blur-strong: 6px;
+  --vfd-optical-blur-soft: 0px;
+  --vfd-optical-blur-strong: 0px;
+  --vfd-mesh-line: rgb(0 0 0 / 62%);
+  --vfd-mesh-opacity: 0.48;
+  --vfd-panel-gap: clamp(0.8rem, 2vw, 1.5rem);
+}

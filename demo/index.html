@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="VFDConsole reusable component demo" />
+    <title>VFDConsole Component Demo</title>
+    <link rel="stylesheet" href="./demo.css" />
+  </head>
+  <body>
+    <main class="demo-shell">
+      <article class="demo-receiver" aria-label="VFDConsole digital receiver">
+        <header class="demo-receiver__masthead">
+          <div class="demo-brand">
+            <span class="demo-brand__mark">VFD</span>
+            <div>
+              <h1>VFDConsole</h1>
+              <p>Digital audio control receiver</p>
+            </div>
+          </div>
+          <div class="demo-receiver__identity">
+            <div class="demo-receiver__model">
+              <span>18 BAND DIGITAL SIGNAL PROCESSOR</span>
+              <strong>VX-9000</strong>
+            </div>
+            <a
+              class="demo-github-button vfd-physical-button"
+              href="https://github.com/haskou/vfd-console"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open VFDConsole on GitHub"
+            >
+              GITHUB
+            </a>
+          </div>
+        </header>
+
+        <div class="demo-display-bezel">
+          <span
+            class="demo-screw demo-screw--top-left"
+            aria-hidden="true"
+          ></span>
+          <span
+            class="demo-screw demo-screw--top-right"
+            aria-hidden="true"
+          ></span>
+          <section
+            id="panel"
+            class="vfd-panel"
+            data-vfd-preset="aiwa"
+            data-vfd-blur="true"
+            data-vfd-mesh="true"
+            data-powered="false"
+            aria-label="Hi-Fi VFD display"
+          >
+            <header class="vfd-header">
+              <div>
+                <span class="demo-model">DIGITAL AUDIO CONTROL</span>
+                <strong>VX-9000</strong>
+              </div>
+              <span class="demo-display-type">18 BAND SPECTRUM ANALYZER</span>
+            </header>
+
+            <div class="vfd-main-readout">
+              <div class="demo-transport-readout">
+                <div id="spinner" class="vfd-spinner"></div>
+                <div id="track" aria-label="No track selected"></div>
+                <div
+                  id="time"
+                  aria-label="Elapsed time 0 minutes 0 seconds"
+                ></div>
+              </div>
+              <div id="title" class="vfd-title-display vfd-text-scroller"></div>
+            </div>
+
+            <div class="vfd-indicator-grid">
+              <section class="vfd-indicator-group">
+                <div class="vfd-indicator-group__label">Transport</div>
+                <div class="vfd-indicator-group__items">
+                  <span data-indicator="play" data-color="green">PLAY</span>
+                  <span data-indicator="pause" data-color="yellow">PAUSE</span>
+                  <span data-indicator="repeat">REPEAT</span>
+                  <span data-indicator="random">RANDOM</span>
+                  <span data-indicator="program">PROGRAM</span>
+                </div>
+              </section>
+              <section class="vfd-indicator-group">
+                <div class="vfd-indicator-group__label">Source</div>
+                <div class="vfd-indicator-group__items">
+                  <span data-indicator="cd">CD</span>
+                  <span data-indicator="tape">TAPE</span>
+                  <span data-indicator="tuner">TUNER</span>
+                  <span data-indicator="aux">AUX</span>
+                </div>
+              </section>
+              <section class="vfd-indicator-group">
+                <div class="vfd-indicator-group__label">Sound</div>
+                <div class="vfd-indicator-group__items">
+                  <span data-indicator="bbe">BBE</span>
+                  <span data-indicator="bass">T-BASS</span>
+                  <span data-indicator="groove">GROOVE</span>
+                  <span data-indicator="surround">SURROUND</span>
+                </div>
+              </section>
+              <section class="vfd-indicator-group">
+                <div class="vfd-indicator-group__label">Radio / Tape</div>
+                <div class="vfd-indicator-group__items">
+                  <span data-indicator="stereo" data-color="green">STEREO</span>
+                  <span data-indicator="rds">RDS</span>
+                  <span data-indicator="dolby" data-color="red">DOLBY B</span>
+                  <span data-indicator="cro2">CrO₂</span>
+                </div>
+              </section>
+            </div>
+
+            <div id="spectrum"></div>
+
+            <footer class="vfd-footer">
+              <div class="demo-meter-rack">
+                <div class="demo-meter-panel demo-meter-panel--peak">
+                  <span>PEAK LEVEL METER</span>
+                  <div id="peak-level"></div>
+                </div>
+                <div class="demo-meter-panel">
+                  <span>BALANCE</span>
+                  <div id="balance"></div>
+                </div>
+                <div class="demo-meter-panel">
+                  <span>VOLUME</span>
+                  <div id="volume"></div>
+                </div>
+              </div>
+            </footer>
+          </section>
+        </div>
+
+        <section class="demo-control-deck" aria-label="Receiver controls">
+          <section class="demo-system-controls" aria-label="System controls">
+            <div class="demo-control-caption">System control</div>
+            <div class="demo-system-controls__buttons">
+              <button
+                id="power"
+                type="button"
+                data-color="red"
+                aria-pressed="false"
+              >
+                POWER
+              </button>
+              <button
+                id="display-test"
+                type="button"
+                data-requires-power
+                aria-pressed="false"
+              >
+                DISPLAY
+              </button>
+            </div>
+            <label class="demo-preset-control">
+              <span>Display character</span>
+              <select id="preset" data-requires-power>
+                <option value="aiwa">AIWA</option>
+                <option value="sony">SONY</option>
+                <option value="technics">TECHNICS</option>
+              </select>
+            </label>
+            <div class="demo-mini-buttons">
+              <button
+                type="button"
+                data-visual-effect="mesh"
+                data-requires-power
+                aria-pressed="true"
+              >
+                MESH
+              </button>
+              <button
+                type="button"
+                data-visual-effect="blur"
+                data-requires-power
+                aria-pressed="true"
+              >
+                BLUR
+              </button>
+            </div>
+          </section>
+
+          <section class="demo-function-controls">
+            <div class="demo-button-group">
+              <div class="demo-control-caption">Input selector</div>
+              <div class="demo-button-strip demo-button-strip--source">
+                <button
+                  type="button"
+                  data-source="cd"
+                  data-requires-power
+                  aria-pressed="true"
+                >
+                  CD
+                </button>
+                <button
+                  type="button"
+                  data-source="tape"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  TAPE
+                </button>
+                <button
+                  type="button"
+                  data-source="tuner"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  TUNER
+                </button>
+                <button
+                  type="button"
+                  data-source="aux"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  AUX
+                </button>
+              </div>
+            </div>
+
+            <div class="demo-button-group">
+              <div class="demo-control-caption">Sound processor</div>
+              <div class="demo-button-strip">
+                <button
+                  type="button"
+                  data-toggle="bbe"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  BBE
+                </button>
+                <button
+                  type="button"
+                  data-toggle="bass"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  T-BASS
+                </button>
+                <button
+                  type="button"
+                  data-toggle="groove"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  GROOVE
+                </button>
+                <button
+                  type="button"
+                  data-toggle="surround"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  SURROUND
+                </button>
+              </div>
+            </div>
+
+            <div class="demo-button-group demo-button-group--utility">
+              <div class="demo-control-caption">Radio / Tape</div>
+              <div class="demo-button-strip">
+                <button
+                  type="button"
+                  data-toggle="stereo"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  STEREO
+                </button>
+                <button
+                  type="button"
+                  data-toggle="rds"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  RDS
+                </button>
+                <button
+                  type="button"
+                  data-toggle="dolby"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  DOLBY B
+                </button>
+                <button
+                  type="button"
+                  data-toggle="cro2"
+                  data-requires-power
+                  aria-pressed="false"
+                >
+                  CrO₂
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="demo-transport-controls">
+            <div class="demo-control-caption">Digital transport</div>
+            <div class="demo-transport-buttons">
+              <button
+                type="button"
+                data-action="prev"
+                data-requires-power
+                aria-label="Previous track"
+              >
+                <span aria-hidden="true">|◀</span>
+                <small>PREV</small>
+              </button>
+              <button
+                type="button"
+                data-action="play"
+                data-requires-power
+                aria-pressed="false"
+                aria-label="Play"
+              >
+                <span aria-hidden="true">▶</span>
+                <small>PLAY</small>
+              </button>
+              <button
+                type="button"
+                data-action="pause"
+                data-requires-power
+                aria-pressed="true"
+                aria-label="Pause"
+              >
+                <span aria-hidden="true">Ⅱ</span>
+                <small>PAUSE</small>
+              </button>
+              <button
+                type="button"
+                data-action="next"
+                data-requires-power
+                aria-label="Next track"
+              >
+                <span aria-hidden="true">▶|</span>
+                <small>NEXT</small>
+              </button>
+            </div>
+            <div class="demo-transport-modes">
+              <button
+                type="button"
+                data-toggle="repeat"
+                data-requires-power
+                aria-pressed="false"
+              >
+                REPEAT
+              </button>
+              <button
+                type="button"
+                data-toggle="random"
+                data-requires-power
+                aria-pressed="false"
+              >
+                RANDOM
+              </button>
+              <button
+                type="button"
+                data-toggle="program"
+                data-requires-power
+                aria-pressed="false"
+              >
+                PROGRAM
+              </button>
+            </div>
+          </section>
+
+          <section class="demo-rotary-controls" aria-label="Rotary controls">
+            <label class="demo-knob-control demo-knob-control--small">
+              <span class="demo-knob-control__label">Balance</span>
+              <span class="demo-knob" aria-hidden="true"></span>
+              <input
+                id="balance-level"
+                type="range"
+                min="-10"
+                max="10"
+                value="0"
+                step="1"
+                aria-label="Balance"
+                data-knob
+                data-requires-power
+              />
+              <span class="demo-knob-control__scale">
+                <span>L</span><span>0</span><span>R</span>
+              </span>
+            </label>
+
+            <label class="demo-knob-control demo-knob-control--small">
+              <span class="demo-knob-control__label">Dimmer</span>
+              <span class="demo-knob" aria-hidden="true"></span>
+              <input
+                id="brightness"
+                type="range"
+                min="0.2"
+                max="1"
+                value="0.9"
+                step="0.05"
+                aria-label="Dimmer"
+                data-knob
+                data-requires-power
+              />
+              <span class="demo-knob-control__scale">
+                <span>MIN</span><span></span><span>MAX</span>
+              </span>
+            </label>
+
+            <label class="demo-knob-control demo-knob-control--small">
+              <span class="demo-knob-control__label">Scroll</span>
+              <span class="demo-knob" aria-hidden="true"></span>
+              <input
+                id="scroll-speed"
+                type="range"
+                min="150"
+                max="700"
+                value="260"
+                step="10"
+                aria-label="Scroll speed"
+                data-knob
+                data-requires-power
+              />
+              <span class="demo-knob-control__scale">
+                <span>FAST</span><span></span><span>SLOW</span>
+              </span>
+            </label>
+
+            <label class="demo-knob-control demo-knob-control--volume">
+              <span class="demo-knob-control__label">Master volume</span>
+              <span class="demo-knob" aria-hidden="true"></span>
+              <input
+                id="volume-level"
+                type="range"
+                min="0"
+                max="16"
+                value="10"
+                step="1"
+                aria-label="Master volume"
+                data-knob
+                data-requires-power
+              />
+              <span class="demo-knob-control__scale">
+                <span>MIN</span><span></span><span>MAX</span>
+              </span>
+            </label>
+          </section>
+        </section>
+
+        <section class="demo-media-bay" aria-labelledby="audio-library-title">
+          <div class="demo-media-bay__header">
+            <div>
+              <p class="demo-control-caption">Digital media tray</p>
+              <h2 id="audio-library-title">Audio queue</h2>
+            </div>
+            <div class="demo-media-actions">
+              <label class="demo-file-button vfd-physical-button">
+                LOAD DISC
+                <input id="audio-files" type="file" accept="audio/*" multiple />
+              </label>
+              <button id="clear-playlist" type="button" disabled>
+                EJECT ALL
+              </button>
+            </div>
+          </div>
+          <div id="audio-drop-zone" class="demo-audio-drop-zone">
+            Drop audio files onto the loading tray
+          </div>
+          <p id="audio-status" class="demo-audio-status" role="status">
+            No audio loaded.
+          </p>
+          <ol id="audio-playlist" class="demo-playlist"></ol>
+          <audio id="audio-player" preload="metadata"></audio>
+        </section>
+
+        <footer class="demo-receiver__footer">
+          <span>Vacuum fluorescent digital receiver</span>
+          <span>AC 230V · 50Hz</span>
+        </footer>
+      </article>
+    </main>
+    <script type="module" src="./demo.ts"></script>
+  </body>
+</html>
